@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán món Bún Bò Huế Đặc Biệt - Nét Huế</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffe6e6, #fff);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-radius: 10px;
+            background-image: url('https://your-image-url.com/background.jpg');
+            background-size: cover;
+        }
+
+        h1 {
+            color: #cc3300;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .food-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .food-image {
+            width: 300px;
+            height: auto;
+            border-radius: 8px;
+            border: 4px solid #cc3300;
+        }
+
+        .food-info {
+            text-align: left;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .food-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .food-info p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 2px solid #cc3300;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e65c00;
+        }
+
+        .home-btn {
+            background-color: #0066cc;
+            margin-left: 10px;
+        }
+
+        .home-btn:hover {
+            background-color: #005bb5;
+        }
+
+        .suggestions {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            margin-right: 15px;
+            border: 3px solid #cc3300;
+        }
+
+        .menu-item h3 {
+            font-size: 18px;
+            color: #cc3300;
+        }
+
+        .menu-item p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nét Huế - Thanh Toán Món Bún Bò Huế Đặc Biệt</h1>
+        <div class="food-section">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0KycBMH70eNerNUMCjuKuIVWNJECz7VUsSg&s" alt="Bún Bò Huế Đặc Biệt" class="food-image">
+            <div class="food-info">
+                <h2>Bún Bò Huế Đặc Biệt</h2>
+                <p>Món bún bò nổi tiếng với hương vị đậm đà, nước dùng thơm ngon.</p>
+                <p><strong>Giá: 88,000 VND</strong></p>
+                <label for="quantity">Số lượng: </label>
+                <input type="number" id="quantity" value="1" min="1" max="10" onchange="updateTotal()">
+                <p><strong>Tổng tiền: </strong><span id="total-price">88,000 VND</span></p>
+                <label for="address">Nhập địa chỉ giao hàng:</label>
+                <input type="text" id="address" placeholder="Nhập địa chỉ của bạn...">
+                <button onclick="thanhToan()">Thanh toán ngay</button>
+                <button class="home-btn" onclick="quayVeTrangChu()">Home</button>
+            </div>
+        </div>
+
+        <div class="suggestions">
+            <h2>Gợi ý món khác</h2>
+
+            <!-- Món 1 -->
+            <div class="menu-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfl52BqsH82cv5XmJ3X7SGt2vYC0djFmR0Pw&s" alt="Bánh Ram Ít">
+                <div>
+                    <h3>Bánh Ram Ít</h3>
+                    <p>Món bánh truyền thống với lớp vỏ giòn tan và nhân đậm đà.</p>
+                    <div class="price">50,000 VND</div>
+                    <button>Đặt món</button>
+                </div>
+            </div>
+
+            <!-- Món 2 -->
+            <div class="menu-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdrIZTpqr1ADiN3X0yn6uy0PiajXXE19YYbA&s" alt="Bánh Khoái">
+                <div>
+                    <h3>Bánh Khoái</h3>
+                    <p>Món bánh đặc trưng của Huế với lớp vỏ giòn rụm và nhân tôm thịt.</p>
+                    <div class="price">70,000 VND</div>
+                    <button>Đặt món</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Nhà hàng Nét Huế. Tất cả các quyền được bảo lưu.</p>
+    </footer>
+
+    <script>
+        function updateTotal() {
+            const pricePerItem = 180000; // Giá mỗi món ăn
+            const quantity = document.getElementById("quantity").value;
+            const totalPrice = pricePerItem * quantity;
+            
+            document.getElementById("total-price").innerText = totalPrice.toLocaleString() + " VND";
+        }
+
+        function thanhToan() {
+            const address = document.getElementById("address").value;
+            if (address === "") {
+                alert("Vui lòng nhập địa chỉ của bạn.");
+            } else {
+                alert("Cảm ơn bạn đã đặt hàng. Địa chỉ giao hàng: " + address + ". Chúng tôi sẽ xử lý đơn hàng của bạn ngay!");
+            }
+        }
+
+        function quayVeTrangChu() {
+            window.location.href = 'Trang_Chu.html'; // Đường dẫn đến trang chủ
+        }
+    </script>
+</body>
+</html>
