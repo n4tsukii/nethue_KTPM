@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán món Bún Hến - Nét Huế</title>
+    <style>
+        /* Phần CSS giống như phiên bản trước */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-net-hue-lang-ha-slide-9-normal-129904613475.webp') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #006699;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .food-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .food-image {
+            width: 300px;
+            height: auto;
+            border-radius: 8px;
+            border: 4px solid #006699;
+        }
+
+        .food-info {
+            text-align: left;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .food-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .food-info p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 2px solid #006699;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e65c00;
+        }
+
+        .home-btn {
+            background-color: #0066cc;
+            margin-left: 10px;
+        }
+
+        .home-btn:hover {
+            background-color: #005bb5;
+        }
+
+        .suggestions {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            margin-right: 15px;
+            border: 3px solid #006699;
+        }
+
+        .menu-item h3 {
+            font-size: 18px;
+            color: #006699;
+        }
+
+        .menu-item p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .discount-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #006699;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nét Huế - Thanh Toán Món Bún Hến</h1>
+        <div class="food-section">
+            <img src="https://nethue.com.vn/temp/-uploaded-san%20pham_bun%20hen_cr_521x521.jpg" alt="Bún Hến" class="food-image"> <!-- Đường dẫn hình ảnh món ăn -->
+            <div class="food-info">
+                <h2>Bún Hến</h2>
+                <p>Bún hến thơm ngon, đặc sản Huế nổi tiếng.</p>
+                <p><strong>Giá: 58,000 VND</strong></p>
+                <label for="quantity">Số lượng: </label>
+                <input type="number" id="quantity" value="1" min="1" max="10" onchange="updateTotal()">
+                <p><strong>Tổng tiền: </strong><span id="total-price">58,000 VND</span></p>
+                
+                <div class="discount-box">
+                    <label for="discount-code-select">Chọn hoặc nhập mã giảm giá:</label>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <select id="discount-code-select" onchange="applyDiscount()">
+                            <option value="none">Không chọn</option>
+                            <option value="GIAM10">GIAM10 - Giảm 10%</option>
+                            <option value="GIAM20">GIAM20 - Giảm 20%</option>
+                            <option value="FREESHIP">FREESHIP - Miễn phí vận chuyển</option>
+                            <option value="HUNG">HUNG - Giảm 50%</option> <!-- Thêm mã giảm giá HUNG -->
+                        </select>
+                        <input type="text" id="discount-code-input" placeholder="Nhập mã giảm giá" oninput="applyDiscount()">
+                    </div>
+                </div>
+
+                <p><strong>Tổng tiền sau giảm: </strong><span id="final-price">58,000 VND</span></p>
+                
+                <label for="address">Nhập địa chỉ giao hàng:</label>
+                <input type="text" id="address" placeholder="Nhập địa chỉ của bạn...">
+                <button onclick="thanhToan()">Thanh toán ngay</button>
+                <button class="home-btn" onclick="quayVeTrangChu()">Home</button>
+            </div>
+        </div>
+
+        <div class="suggestions">
+            <h2>Món khác</h2>
+
+            <!-- Món 1 -->
+            <div class="menu-item">
+                <img src="https://nhahangcontoc.com/wp-content/uploads/2023/03/1.-Banh-mi-Truong-Tien-O-Tho-_Anh-Suu-tam.jpg" alt="Bánh Mì">
+                <div>
+                    <h3>Bánh Mì</h3>
+                    <p>Bánh mì nóng giòn, kèm nhân đa dạng.</p>
+                    <div class="price">25,000 VND</div>
+                    <button>Đặt món</button>
+                </div>
+            </div>
+
+            <!-- Món 2 -->
+            <div class="menu-item">
+                <img src="https://www.hoangbeo.com/wp-content/uploads/z4712117611734_6f7e121bf37455de15e9d739e6a6d4ff.jpg" alt="Bún Thịt Nướng">
+                <div>
+                    <h3>Bún Thịt Nướng</h3>
+                    <p>Bún thịt nướng thơm ngon, hấp dẫn.</p>
+                    <div class="price">70,000 VND</div>
+                    <button>Đặt món</button>
+                </div>
+            </div>
+
+            <!-- Món 3 -->
+            <div class="menu-item">
+                <img src="https://danviet.mediacdn.vn/upload/4-2016/images/2016-12-03/148077567080788-bo-1.jpg" alt="Phở Bò">
+                <div>
+                    <h3>Phở Bò</h3>
+                    <p>Phở bò với nước dùng đậm đà, sợi phở mềm.</p>
+                    <div class="price">60,000 VND</div>
+                    <button>Đặt món</button>
+                </div>
+            </div>
+
+            <!-- Món 4 -->
+            <div class="menu-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFt51CWYB42YpnhzqFjmRW_iMzQXncmZCXmw&s" alt="Xôi Gấc">
+                <div>
+                    <h3>Xôi Gấc</h3>
+                    <p>Xôi gấc dẻo thơm, màu sắc hấp dẫn.</p>
+                    <div class="price">30,000 VND</div>
+                    <button>Đặt món</button>
+                </div>
+            </div>
+        </div>
+        <footer>&copy; 2024 Nét Huế - Tất cả bản quyền đã được bảo lưu</footer>
+    </div>
+
+    <script>
+        function updateTotal() {
+            let quantity = document.getElementById("quantity").value;
+            let price = 58000;
+            let totalPrice = quantity * price;
+            document.getElementById("total-price").innerText = totalPrice.toLocaleString() + " VND";
+            document.getElementById("final-price").innerText = totalPrice.toLocaleString() + " VND";
+        }
+
+        function applyDiscount() {
+            let totalPrice = document.getElementById("quantity").value * 58000;
+            let discountCode = document.getElementById("discount-code-select").value;
+            let discountInput = document.getElementById("discount-code-input").value.toUpperCase();
+
+            if (discountCode === "GIAM10" || discountInput === "GIAM10") {
+                totalPrice *= 0.9;
+            } else if (discountCode === "GIAM20" || discountInput === "GIAM20") {
+                totalPrice *= 0.8;
+            } else if (discountCode === "HUNG" || discountInput === "HUNG") {
+                totalPrice *= 0.5;
+            }
+
+            document.getElementById("final-price").innerText = totalPrice.toLocaleString() + " VND";
+        }
+
+        function thanhToan() {
+            alert("Thanh toán thành công!");
+        }
+
+        function quayVeTrangChu() {
+            window.location.href = "C:/Users/Admin/Documents/Bai_tap_lon_web/Bai_tap_lon_web/Trang_chu/Trang_chu.html";
+        }
+    </script>
+</body>
+</html>
