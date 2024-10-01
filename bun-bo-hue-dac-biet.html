@@ -162,17 +162,17 @@
         <div class="food-section">
             <img src="https://nethue.com.vn/uploaded/san%20pham/bun%20bo%20dac%20biet.jpg" alt="Bún Bò Huế Đặc Biệt" class="food-image"> <!-- Thay đổi đường dẫn hình ảnh món ăn -->
             <div class="food-info">
-                <h2>Bún Bò Huế Đặc Biệt</h2>
+                <h2 id = "food-name">Bún Bò Huế Đặc Biệt</h2>
                 <p>Món bún bò huế đặc biệt với hương vị đậm đà, thơm ngon.</p>
-                <p><strong>Giá: 88,000 VND</strong></p> <!-- Thay đổi giá của món ăn -->
+                <p><strong id = "price">Giá: 88,000 VND</strong></p> <!-- Thay đổi giá của món ăn -->
                 <label for="quantity">Số lượng: </label>
-                <input type="number" id="quantity" value="1" min="1" max="10" onchange="updateTotal()">
+                <input type="number" id="quantity" value="1" min="1" max="10">
                 <p><strong>Tổng tiền: </strong><span id="total-price">88,000 VND</span></p>
                 
                 <div class="discount-box">
                     <label for="discount-code-select">Chọn hoặc nhập mã giảm giá:</label>
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <select id="discount-code-select" onchange="applyDiscount()">
+                        <select id="discount-code-select">
                             <option value="none">Không chọn</option>
                             <option value="GIAM10">GIAM10 - Giảm 10%</option>
                             <option value="GIAM20">GIAM20 - Giảm 20%</option>
@@ -187,7 +187,7 @@
                 
                 <label for="address">Nhập địa chỉ giao hàng:</label>
                 <input type="text" id="address" placeholder="Nhập địa chỉ của bạn...">
-                <button onclick="thanhToan()">Thanh toán ngay</button>
+                <button id = "thanhtoan-btn">Thanh toán ngay</button>
                 <button class="home-btn" onclick="quayVeTrangChu()">Home</button>
             </div>
         </div>
@@ -222,20 +222,58 @@
     <footer>
         <p>© 2024 Nhà hàng Nét Huế. Bảo lưu mọi quyền.</p>
     </footer>
+    <script type="module">
+        document.getElementById("quantity").addEventListener("change", updateTotal);
+        document.getElementById("discount-code-select").addEventListener("change", applyDiscount);
+        document.getElementById("discount-code-input").addEventListener("change", applyDiscount);
+        const ThanhToan_btn = document.getElementById("thanhtoan-btn");
+        const price = 88000;
 
-    <script>
-        function updateTotal() {
-            const pricePerItem = 88000; // Giá của Bún Bò Huế Đặc Biệt
-            const quantity = document.getElementById('quantity').value;
-            const totalPrice = pricePerItem * quantity;
-            document.getElementById('total-price').innerText = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-            applyDiscount(); // Cập nhật tổng tiền sau giảm giá
-        }
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js'
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js'
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js'
+        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js'
+
+        let firebaseConfig = {
+            apiKey: "AIzaSyDfgWRy7bLoMaoH-4XEd6RRjVADeSUG8sY",
+            authDomain: "nethue-ktpm.firebaseapp.com",
+            projectId: "nethue-ktpm",
+            storageBucket: "nethue-ktpm.appspot.com",
+            messagingSenderId: "923818382455",
+            appId: "1:923818382455:web:a7583381f3c3b211e66272",
+            measurementId: "G-G81N2NNXDF"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app)
+
+        ThanhToan_btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const id = new Date().getTime().toString();
+            const food_name = document.getElementById("food-name").innerText;
+            const final_price = document.getElementById("final-price").innerText;
+            const discount_code_input = document.getElementById("discount-code-input").value;
+            const discount_code_select = document.getElementById("discount-code-select").value;
+            const quantity = parseInt(document.getElementById("quantity").value);
+            console.log(food_name);
+            await setDoc(doc(db, "orders", id), {
+                id: id,
+                food_name: food_name,
+                price: price, 
+                quantity: quantity,
+                discount_code_input: discount_code_input,
+                discount_code_select: discount_code_select,
+                final_price: final_price,
+            }).then(() => {
+                quayVeTrangChu();
+            }).catch(Err => console.log(Err));
+        });
 
         function applyDiscount() {
+            let discount = 0;
             const discountCodeSelect = document.getElementById('discount-code-select').value;
             const discountCodeInput = document.getElementById('discount-code-input').value;
-            let discount = 0;
 
             if (discountCodeSelect === 'GIAM10' || discountCodeInput === 'GIAM10') {
                 discount = 0.10; // Giảm 10%
@@ -247,16 +285,19 @@
                 discount = 0.50; // Giảm 50%
             }
 
-            const quantity = document.getElementById('quantity').value;
-            const pricePerItem =88000; // Giá của Bún Bò Huế Đặc Biệt
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const pricePerItem = 88000; // Giá của Bún Bò Huế Đặc Biệt
             const totalPrice = pricePerItem * quantity;
             const discountedPrice = totalPrice - (totalPrice * discount);
             document.getElementById('final-price').innerText = discountedPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
         }
 
-        function thanhToan() {
-            alert('Cảm ơn bạn đã đặt hàng món Bún Bò Huế Đặc Biệt!');
-            // Thêm mã thanh toán ở đây nếu cần
+        function updateTotal() {
+            const pricePerItem = 88000; // Giá của Bún Bò Huế Đặc Biệt
+            const quantity = parseInt(document.getElementById("quantity").value);
+            const totalPrice = pricePerItem * quantity;
+            document.getElementById('total-price').innerText = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            applyDiscount(); // Cập nhật tổng tiền sau giảm giá
         }
 
         function quayVeTrangChu() {
