@@ -318,18 +318,6 @@
             document.getElementById('final-price').innerText = discountedPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
         }
 
-        function getTime() {
-            const date = new Date();
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
-            const day = date.getDate();
-            const month = date.getMonth() + 1; // Months are 0-indexed
-            const year = date.getFullYear();
-        
-            const formattedDate = `${hours}/${minutes} ${day}/${month}/${year}`;
-            return formattedDate.toString();
-        }
-
         function updateTotal() {
             const pricePerItem = 88000; // Giá của Bún Bò Huế Đặc Biệt
             const quantity = parseInt(document.getElementById("quantity").value);
