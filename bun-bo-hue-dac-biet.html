@@ -188,7 +188,7 @@
                 <label for="address">Nhập địa chỉ giao hàng:</label>
                 <input type="text" id="address" placeholder="Nhập địa chỉ của bạn...">
                 <button id = "thanhtoan-btn">Thanh toán ngay</button>
-                <button class="home-btn" onclick="quayVeTrangChu()">Home</button>
+                <button class="home-btn" id = "home-btn">Home</button>
             </div>
         </div>
 
@@ -227,12 +227,14 @@
         document.getElementById("discount-code-select").addEventListener("change", applyDiscount);
         document.getElementById("discount-code-input").addEventListener("change", applyDiscount);
         const ThanhToan_btn = document.getElementById("thanhtoan-btn");
+        document.getElementById("home-btn").addEventListener("click", quayVeTrangChu);
         const price = 88000;
 
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js'
-        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js'
-        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js'
-        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js'
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js';
+        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+        import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
 
         let firebaseConfig = {
             apiKey: "AIzaSyDfgWRy7bLoMaoH-4XEd6RRjVADeSUG8sY",
@@ -250,25 +252,49 @@
 
         ThanhToan_btn.addEventListener("click", async (e) => {
             e.preventDefault();
-            const id = new Date().getTime().toString();
+        
             const food_name = document.getElementById("food-name").innerText;
+            const address = document.getElementById("address").value;
             const final_price = document.getElementById("final-price").innerText;
             const discount_code_input = document.getElementById("discount-code-input").value;
             const discount_code_select = document.getElementById("discount-code-select").value;
             const quantity = parseInt(document.getElementById("quantity").value);
-            console.log(food_name);
-            await setDoc(doc(db, "orders", id), {
-                id: id,
-                food_name: food_name,
-                price: price, 
-                quantity: quantity,
-                discount_code_input: discount_code_input,
-                discount_code_select: discount_code_select,
-                final_price: final_price,
-            }).then(() => {
+        
+            if (!address) {
+                alert("Vui lòng nhập địa chỉ giao hàng");
+                return;
+            }
+        
+            try {
+                // Get the current number of orders
+                const ordersSnapshot = await getDocs(collection(db, "orders"));
+                const orderCount = ordersSnapshot.size; // The number of orders
+        
+                // Use the count + 1 as the new order index
+                const newOrderId = (orderCount + 1).toString();
+        
+                // Save the order with the new index as the ID
+                await setDoc(doc(db, "orders", newOrderId), {
+                    id: newOrderId,
+                    food_name: food_name,
+                    price: price, 
+                    quantity: quantity,
+                    discount_code_input: discount_code_input,
+                    discount_code_select: discount_code_select,
+                    final_price: final_price,
+                    address: address,
+                });
+        
+                // Show a success alert and then redirect to the home page after user clicks "OK"
+                alert("Đặt Hàng Thành Công");
                 quayVeTrangChu();
-            }).catch(Err => console.log(Err));
+        
+            } catch (error) {
+                console.error("Error creating order: ", error);
+            }
         });
+        
+        
 
         function applyDiscount() {
             let discount = 0;
@@ -290,6 +316,18 @@
             const totalPrice = pricePerItem * quantity;
             const discountedPrice = totalPrice - (totalPrice * discount);
             document.getElementById('final-price').innerText = discountedPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        }
+
+        function getTime() {
+            const date = new Date();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const day = date.getDate();
+            const month = date.getMonth() + 1; // Months are 0-indexed
+            const year = date.getFullYear();
+        
+            const formattedDate = `${hours}/${minutes} ${day}/${month}/${year}`;
+            return formattedDate.toString();
         }
 
         function updateTotal() {
