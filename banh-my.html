@@ -191,13 +191,21 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .order-summary {
+            text-align: left;
+        }
+
+        .order-summary p {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Nét Huế - Thanh Toán Món Bánh Mỳ</h1>
         <div class="food-section">
-            <img src="https://vcdn-dulich.vnecdn.net/2022/03/28/banhmi1-1648456415-1648456437-1648456439_680x0.jpg" alt="Bánh Mỳ" class="food-image">
+            <img src="https://thanhnien.mediacdn.vn/uploaded/giangvu/2020_03_24/banhmiphalau5_NNPD.jpg?width=500" alt="Bánh Mỳ" class="food-image">
             <div class="food-info">
                 <h2>Bánh Mỳ</h2>
                 <p>Bánh mỳ thơm giòn, hấp dẫn.</p>
@@ -234,7 +242,7 @@
 
             <!-- Món 1 -->
             <div class="menu-item">
-                <img src="https://cdn.sgtiepthi.vn/wp-content/uploads/2023/07/CA-TRAU-NAU-CHAO-DAU-XANH-2-Custom.jpg" alt="Cháo Cá Lóc">
+                <img src="https://images2.thanhnien.vn/zoom/686_429/Uploaded/nguyenvan/2022_11_03/chao-ca-loc-rau-dang-dat-9538.jpg" alt="Cháo Cá Lóc">
                 <div>
                     <h3>Cháo Cá Lóc</h3>
                     <p>Món cháo cá lóc đậm đà, thơm ngon.</p>
@@ -245,10 +253,10 @@
 
             <!-- Món 2 -->
             <div class="menu-item">
-                <img src="https://vcdn1-dulich.vnecdn.net/2016/04/28/Anh1-2283-1461811111.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=z1Y0-mQ_8XM7iQQfaidQhw" alt="Bún Riêu Cua">
+                <img src="https://kinhdoamthuc.com/wp-content/uploads/2023/07/bun-bo-gio-heo-ngon-dam-da.jpg" alt="Bún Huế Giò Heo">
                 <div>
-                    <h3>Bún Riêu Cua</h3>
-                    <p>Món bún riêu cua thanh mát, chua chua ngon miệng.</p>
+                    <h3>Bún Huế Giò Heo</h3>
+                    <p>Thơm lừng hương vị truyền thống, đậm đà.</p>
                     <div class="price">45,000 VND</div>
                     <button>Đặt món</button>
                 </div>
@@ -256,52 +264,76 @@
         </div>
     </div>
 
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Đặt hàng thành công!</h2>
+            <div class="order-summary">
+                <p><strong>Tên món:</strong> Bánh Mỳ</p>
+                <p><strong>Số lượng:</strong> <span id="order-quantity">1</span></p>
+                <p><strong>Tổng tiền:</strong> <span id="order-total-price">25,000 VND</span></p>
+                <p><strong>Địa chỉ giao hàng:</strong> <span id="order-address"></span></p>
+            </div>
+            <p>Cảm ơn quý khách đã đặt hàng tại Nét Huế!</p>
+        </div>
+    </div>
+
     <footer>
-        &copy; 2024 Nét Huế - Đặc sản Huế
+        <p>&copy; 2023 Nét Huế. Mọi quyền được bảo lưu.</p>
     </footer>
 
     <script>
         function updateTotal() {
-            let quantity = document.getElementById("quantity").value;
-            let totalPrice = quantity * 25000;
-            document.getElementById("total-price").textContent = totalPrice.toLocaleString() + " VND";
-            document.getElementById("final-price").textContent = totalPrice.toLocaleString() + " VND";
+            var price = 25000;
+            var quantity = document.getElementById('quantity').value;
+            var totalPrice = price * quantity;
+            document.getElementById('total-price').innerText = totalPrice.toLocaleString('vi-VN') + ' VND';
+            document.getElementById('final-price').innerText = totalPrice.toLocaleString('vi-VN') + ' VND';
         }
 
         function applyDiscount() {
-            let total = document.getElementById("total-price").textContent.replace(/[^0-9]/g, '');
-            total = parseInt(total);
-            let discountCode = document.getElementById("discount-code-select").value;
-            let discountInput = document.getElementById("discount-code-input").value;
+            var discountSelect = document.getElementById('discount-code-select');
+            var discountCodeInput = document.getElementById('discount-code-input').value.toUpperCase();
+            var discountCode = discountCodeInput || discountSelect.value;
+            var price = 25000;
+            var quantity = document.getElementById('quantity').value;
+            var totalPrice = price * quantity;
 
-            let discount = 0;
-            if (discountCode === "GIAM10" || discountInput === "GIAM10") {
+            var discount = 0;
+
+            if (discountCode === 'GIAM10') {
                 discount = 0.1;
-            } else if (discountCode === "GIAM20" || discountInput === "GIAM20") {
+            } else if (discountCode === 'GIAM20') {
                 discount = 0.2;
-            } else if (discountCode === "FREESHIP" || discountInput === "FREESHIP") {
-                discount = 0;
-            } else if (discountCode === "HUNG" || discountInput === "HUNG") {
+            } else if (discountCode === 'HUNG') {
                 discount = 0.5;
             }
 
-            let finalTotal = total - total * discount;
-            document.getElementById("final-price").textContent = finalTotal.toLocaleString() + " VND";
+            var finalPrice = totalPrice * (1 - discount);
+            document.getElementById('final-price').innerText = finalPrice.toLocaleString('vi-VN') + ' VND';
         }
 
         function thanhToan() {
-            let address = document.getElementById("address").value;
-            if (address.trim() === "") {
-                alert("Vui lòng nhập địa chỉ giao hàng!");
-                return;
-            }
+            var quantity = document.getElementById('quantity').value;
+            var totalPrice = document.getElementById('final-price').innerText;
+            var address = document.getElementById('address').value;
 
-            let finalTotal = document.getElementById("final-price").textContent;
-            alert("Thanh toán thành công! Tổng tiền: " + finalTotal + ". Giao hàng đến: " + address);
+            document.getElementById('order-quantity').innerText = quantity;
+            document.getElementById('order-total-price').innerText = totalPrice;
+            document.getElementById('order-address').innerText = address;
+
+            var modal = document.getElementById('success-modal');
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('success-modal');
+            modal.style.display = 'none';
         }
 
         function quayVeTrangChu() {
-            window.location.href = "index.html";
+            window.location.href = 'file:///C:/Users/Admin/Documents/Bai_tap_lon_web/Bai_tap_lon_web/Trang_chu/Trang_Chu.html';
         }
     </script>
 </body>

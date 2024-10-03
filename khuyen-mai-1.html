@@ -13,7 +13,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: url('https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-net-hue-thiet-ke-moi-backgroud-dep.webp') no-repeat center center fixed;
+            background: url('https://gcs.tripi.vn/public-tripi/tripi-feed/img/473898iXs/net-hue-1.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #333;
         }
@@ -222,7 +222,13 @@
             }
         }
 
-        button {
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px; /* Khoảng cách giữa các nút và món ăn */
+        }
+
+        .button-container button {
             background-color: #ff0000;
             color: white;
             padding: 15px 30px;
@@ -232,13 +238,9 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             animation: pulseButton 1.5s infinite alternate, slideUp 1s ease-out;
-            margin-top: 30px; /* Khoảng cách giữa nút và các món ăn */
-            display: block; /* Để căn giữa nút */
-            margin-left: auto; /* Căn giữa */
-            margin-right: auto; /* Căn giữa */
         }
 
-        button:hover {
+        .button-container button:hover {
             background-color: #cc0000;
             transform: scale(1.1);
         }
@@ -286,37 +288,41 @@
 <body>
     <div class="container">
         <div class="sale-banner">SIÊU KHUYẾN MÃI: MUA 3 TẶNG 1 CHÈ HUẾ</div>
-        <h1>SALE LỚN</h1>
-        <p>Đừng bỏ lỡ cơ hội sở hữu những món ngon với giá cực hấp dẫn!</p>
-
+        <h1>Khuyến Mãi</h1>
+        <p>Nhà hàng Nét Huế giới thiệu chương trình khuyến mãi đặc biệt! Mua 3 món ăn, bạn sẽ nhận được 1 chè Huế miễn phí.</p>
         <div class="food-section">
             <div class="food-item">
-                <div class="sale-badge">-20%</div>
-                <img src="https://example.com/mon1.jpg" alt="Món 1">
+                <div class="sale-badge">Giảm giá!</div>
+                <img src="https://static.vinwonders.com/production/bun-bo-hue-cau-giay-1.jpg" alt="Bún Bò Huế">
                 <h3>Bún Bò Huế</h3>
-                <p>Bún bò Huế đặc sản với nước dùng đậm đà và thịt bò mềm.</p>
-                <div class="price">68,000 VND</div>
-            </div>
-            <div class="food-item">
-                <div class="sale-badge">-10%</div>
-                <img src="https://example.com/mon2.jpg" alt="Món 2">
-                <h3>Bún Hến</h3>
-                <p>Bún hến thơm ngon, chế biến từ hến tươi ngon.</p>
                 <div class="price">55,000 VND</div>
             </div>
             <div class="food-item">
-                <div class="sale-badge">-15%</div>
-                <img src="https://example.com/mon3.jpg" alt="Món 3">
-                <h3>Chả Tôm</h3>
-                <p>Chả tôm giòn tan, hấp dẫn với nước chấm đặc biệt.</p>
-                <div class="price">75,000 VND</div>
+                <div class="sale-badge">Giảm giá!</div>
+                <img src="https://statics.vinpearl.com/banh-beo-hue-01_1631680255.jpg" alt="Bánh Bèo Huế">
+                <h3>Bánh Bèo Huế</h3>
+                <div class="price">25,000 VND</div>
+            </div>
+            <div class="food-item">
+                <div class="sale-badge">Giảm giá!</div>
+                <img src="https://static.vinwonders.com/production/bun-thit-nuong-hue-6.jpg" alt="Bún Thịt Nướng Huế">
+                <h3>Bún Thịt Nướng Huế</h3>
+                <div class="price">50,000 VND</div>
+            </div>
+            <div class="food-item">
+                <div class="sale-badge">Giảm giá!</div>
+                <img src="https://cdn.tgdd.vn/2021/02/CookProduct/banhramitHue-1200x676-1.jpg" alt="Bánh Ram Ít">
+                <h3>Bánh Ram Ít</h3>
+                <div class="price">30,000 VND</div>
             </div>
         </div>
 
-        <button>Mua Ngay</button>
+        <!-- Thêm button Mua Ngay và Quay về trang chủ -->
+        <div class="button-container">
+            <button onclick="location.href='khuyen-mai-12.html'">Mua Ngay</button>
+            <button onclick="location.href='file:///C:/Users/Admin/Documents/Bai_tap_lon_web/Bai_tap_lon_web/Trang_chu/Trang_Chu.html'">Quay về trang chủ</button>
+        </div>
     </div>
-    <footer>
-        &copy; 2024 Nét Huế. Tất cả quyền được bảo lưu.
-    </footer>
+    <footer>&copy; 2024 Nét Huế. Tất cả các quyền được bảo lưu.</footer>
 </body>
 </html>
