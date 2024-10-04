@@ -532,6 +532,11 @@ th, td {
     background-image: url(./img/nen2.png);
 }
 /* Css bổ sung */
+.tong4{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .paging .page{
     border: 1px solid rgb(84, 82, 82);
 
@@ -543,4 +548,90 @@ th, td {
 }
 .clicked{
     background-color: #999;
+}
+
+
+.monan {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+.monan img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+
+.monan:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+
+.monan:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2); /
+}
+
+
+.monan .montext {
+    padding: 10px;
+}
+
+
+.monan .montext h3 {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #333;
+}
+
+
+.monan .montext span {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+}
+
+
+.monan .icon1 {
+    display: flex;
+    
+    align-items: center;
+    padding: 10px;
+    background: #d7a657;
+    color: #fff;
+    cursor: pointer;
+    border-top: 1px solid #ddd;
+    transition: background 0.3s;
+}
+
+
+.monan .icon1 i {
+    margin-right: 5px;
+}
+
+
+.monan .icon1:hover {
+    background: #c69551; 
+}
+
+
+.monan .icon1 p {
+    margin: 0;
+}
+
+.monan.icon1:hover .icon{
+    background-color: white;
+}
+
+.monan.icon1:hover .p{
+    color: #ac7323;
 }
