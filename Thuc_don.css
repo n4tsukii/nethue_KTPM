@@ -317,11 +317,11 @@ th, td {
 }
 .icon1{
     display: flex;
-    
     width: 130px;
     height: 40px;
-    border-radius: 30%;
+    border-radius: 20px;
     margin-left: 85px;
+    
 }
 .icon1 i{
     color: #eb983e;
