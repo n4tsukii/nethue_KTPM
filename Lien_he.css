@@ -7,12 +7,13 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
+    background-color: #f9f9f9; /* Màu nền */
 }
 
 .form {
     width: 1500px;
     height: auto;
-    background-color: burlywood;
+    background-color: burlywood; /* Nền của form */
 }
 
 header {
@@ -48,9 +49,6 @@ header {
     background-color: white; 
     padding: 2px; 
     border-radius: 5px; 
-}
-
-.ngonngu img {
     width: 30px;
     height: auto;
     border-radius: 50%;
@@ -124,7 +122,6 @@ header a {
 }
 
 .menu ul.sub-menu {
-    position: absolute;
     background-image: url('./img/tuong.jpeg');
     list-style-type: none;
     padding: 10px 0;
@@ -152,7 +149,6 @@ header a {
 
 .menu ul.sub-menu li:hover a {
     color: #000; 
-    border-bottom: none; 
 }
 
 .menu li:hover > .sub-menu {
@@ -171,24 +167,18 @@ header a {
     }
 }
 
-
-.menu li {
-    position: relative;
-}
-
-
-
-.footer{
+.footer {
     height: 300px;
     background-color: black;
     color: white;
     display: flex;
 }
 
-.cuoi{
+.cuoi {
     background-color: rgb(65, 63, 63);
 }
-.trongcuoi{
+
+.trongcuoi {
     width: 80%;
     justify-content: center;
     margin: 0 auto;
@@ -196,73 +186,70 @@ header a {
     line-height: 2.4;
 }
 
-.footer .a{
+.footer .a {
     width: 80%;
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
-    
-    
 }
 
-.khung2 h1{
+.khung2 h1 {
     color: #eb983e;
 }
 
 th, td {
-    padding:10px 0; 
+    padding: 10px 0; 
     text-align: left;
 }
 
-.footer a{
+.footer a {
     text-decoration: none;
     color: white;
 }
 
-.footer .khung3 ul{
+.footer .khung3 ul {
     list-style-type: none;
 }
 
-.title-footer h3{
+.title-footer h3 {
     color: #eb983e;
 }
 
-.footer .khung3 li{
+.footer .khung3 li {
     margin: 10px 0;
 }
 
-.khung4{
+.khung4 {
     display: flex;
 }
 
-.khung4 img{
+.khung4 img {
     width: 30px;
 }
- 
-.khung4_2 .cell-1-2 img{
+
+.khung4_2 .cell-1-2 img {
     width: 90px;
 }
 
-.khung4 .title-footer{
+.khung4 .title-footer {
     color: #eb983e;
 }
 
-.khung4_2{
+.khung4_2 {
     margin: 10px 10px;
 }
 
-.khung4_2 .linksmo{
-    padding:5px 0;
+.khung4_2 .linksmo {
+    padding: 5px 0;
 }
 
-/* css phần viền */
-.vien{
+/* phần viền */
+.vien {
     width: 100%;
-    
     margin: 0 auto;
 }
 
-.vien .content{
+.vien .content {
     width: 80%;
     margin: 0 auto;
     display: flex;
@@ -270,28 +257,24 @@ th, td {
     line-height: 2.0;
 }
 
-.vien .content>*{
+.vien .content > * {
     margin-right: 2px;
 }
 
-.vien .content p, .vien .content .tc{
+.vien .content p, .vien .content .tc {
     color: #6f6b6b;
 }
 
-.vien .content .lh{
+.vien .content .lh {
     color: #bb7326;
 }
 
-
-.vien a{
+.vien a {
     text-decoration: none;
 }
 
-
-/* Css phần body */
-
-
-.body{
+/* Css phần body */
+.body {
     background-image: url('./img/tuong.jpeg');
     width: 100%;
     height: 820px;
@@ -299,48 +282,61 @@ th, td {
     padding: 20px 0;
 }
 
-.lienhe{
+.lienhe {
     display: flex;
     justify-content: center;
     align-content: center;
     margin-top: 36px;
-    margin-bottom: 56px ;
+    margin-bottom: 56px;
 }
 
-.lienhe h1{
+.lienhe h1 {
     color: #eb983e;
     font-size: 37px;
 }
 
-.container_1{
+.line-title{
+    width: 750px
+
+}
+.form{
+    width: 730px;
+    height: 650px;
+    margin-left: 19%;
+}
+.contactform{
+    width: 750px;
+}
+
+.line-frm{
+    width: 750px;
+}
+.container_1 {
     width: 84%;
     height: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     background-color: white;
+    margin-left: 8%;
 }
 
-.container2{
+.container2 {
     display: flex;
     justify-content: space-between;
-
-
 }
+ 
 
-.right, .left{
+.right, .left {
     flex-basis: 48%;
-    
 }
 
-
-
-.right .im{
+.right .im {
     width: 99%;
     height: 100%;
 }
 
-.right img{
+.right img {
     width: 100%;
     height: 100%;
     text-align: center;
@@ -348,8 +344,6 @@ th, td {
 }
 
 /* Test */
-
-
 .left {
     margin: auto;
     background: #F1F1F1;
@@ -428,10 +422,17 @@ input[type="text"].captcha-input {
     clear: both;
 }
 
-#imgCaptcha{
+#imgCaptcha {
     padding-right: 3px;
 }
 
-.container2{
+.container2 {
     justify-content: space-around;
+}
+
+
+.line-frm{
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
